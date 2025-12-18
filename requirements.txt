@@ -1,2 +1,2 @@
-ai-v2.py
+discord.py
 flask
