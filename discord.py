@@ -7,9 +7,17 @@ import asyncio
 import tempfile
 import os
 from pathlib import Path
-from config import DISCORD_TOKEN, GOOGLE_AI_KEY, META_AI_KEY, QWEN_AI_KEY, CHUTES_AI_KEY
-import os
 from keep_alive import keep_alive
+
+try:
+    from config import DISCORD_TOKEN, GOOGLE_AI_KEY, META_AI_KEY, QWEN_AI_KEY, CHUTES_AI_KEY
+except ImportError:
+    # Fallback for cloud hosting (Replit/Heroku/Render)
+    DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+    GOOGLE_AI_KEY = os.getenv("GOOGLE_AI_KEY")
+    META_AI_KEY = os.getenv("META_AI_KEY")
+    QWEN_AI_KEY = os.getenv("QWEN_AI_KEY")
+    CHUTES_AI_KEY = os.getenv("CHUTES_AI_KEY")
 
 # Set up bot
 intents = discord.Intents.default()
@@ -908,7 +916,7 @@ async def on_command_error(ctx, error):
 # Run the bot
 if __name__ == "__main__":
     try:
-        bot.run(DISCORD_TOKEN)
-        keep_alive()
+        keep_alive()           # Start the web server thread first
+        bot.run(DISCORD_TOKEN) # Then start the bot
     except Exception as e:
         print(f"Failed to start bot: {e}")
