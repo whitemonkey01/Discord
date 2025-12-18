@@ -9,15 +9,12 @@ import os
 from pathlib import Path
 from keep_alive import keep_alive
 
-try:
-    from config import DISCORD_TOKEN, GOOGLE_AI_KEY, META_AI_KEY, QWEN_AI_KEY, CHUTES_AI_KEY
-except ImportError:
-    # Fallback for cloud hosting (Replit/Heroku/Render)
-    DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-    GOOGLE_AI_KEY = os.getenv("GOOGLE_AI_KEY")
-    META_AI_KEY = os.getenv("META_AI_KEY")
-    QWEN_AI_KEY = os.getenv("QWEN_AI_KEY")
-    CHUTES_AI_KEY = os.getenv("CHUTES_AI_KEY")
+# Read from Render's Environment Variables
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+GOOGLE_AI_KEY = os.getenv("GOOGLE_AI_KEY")
+META_AI_KEY = os.getenv("META_AI_KEY")
+QWEN_AI_KEY = os.getenv("QWEN_AI_KEY")
+CHUTES_AI_KEY = os.getenv("CHUTES_AI_KEY")
 
 # Set up bot
 intents = discord.Intents.default()
@@ -35,77 +32,117 @@ IDENTITY_PATTERNS = [
     r"(are you|who are you|what are you|tell me about yourself|your name|your model)",
     r"(how.*you.*work|what.*you.*do|your capabilities|your purpose)",
     
-    # Add patterns for other languages as needed
-    # Spanish
-    r"(quién|qué).*(eres|tú|tu identidad|te creó|te hizo|desarrollador|creador|dueño)",
-    r"(eres tú|quién eres tú|qué eres tú|cuéntame sobre ti|tu nombre|tu modelo)",
     
-    # French
-    r"(qui|quoi).*(es-tu|toi|ton identité|t'a créé|t'a fait|développeur|créateur|propriétaire)",
-    r"(es-tu|qui es-tu|qu'es-tu|parle-moi de toi|ton nom|ton modèle)",
+    # Add patterns for other languages a
+    ded
+    #
+    ish
+    r"(quién|qué).*(eres|tú|tu identidad|te creó|te hizo|desarrollador|creador,
+    )",
+    r"(eres tú|quién eres tú|qué eres tú|cuéntame sobre ti|tu nombre|tu ,
     
-    # Hindi
-    r"(कौन|क्या).*(तुम|तुम्हारा|तुम्हारी पहचान|तुम्हें बनाया|तुम्हें बनाने वाला|डेवलपर|निर्माता|मालिक)",
-    r"(तुम कौन हो|तुम क्या हो|अपने बारे में बताओ|तुम्हारा नाम|तुम्हारा मॉडल)",
+       
     
-    # Arabic
-    r"(من|ما).*(أنت|نفسك|هويتك|قام بإنشائك|صانعك|المطور|المنشئ|المالك)",
-    r"(هل أنت|من أنت|ما أنت|أخبرني عن نفسك|اسمك|نموذجك)",
+    nch
+    r"(qui|quoi).*(es-tu|toi|ton identité|t'a créé|t'a fait|développeur|créateur|propri,
+    )",
+    r"(es-tu|qui es-tu|qu'es-tu|parle-moi de toi|ton nom|ton ,
+    
+       
+   
+    ndi
+    r"(कौन|क्या).*(तुम|तुम्हारा|तुम्हारी पहचान|तुम्हें बनाया|तुम्हें बनाने वाला|डेवलपर|निर्माता,
+    )",
+    r"(तुम कौन हो|तुम क्या हो|अपने बारे में बताओ|तुम्हारा नाम|तुम्हार,
+    
+       
+    
+    bic
+    r"(من|ما).*(أنت|نفسك|هويتك|قام بإنشائك|صانعك|المطور|المنشئ|,
+    )",
+    r"(هل أنت|من أنت|ما أنت|أخبرني عن نفسك|اسمك|,
+و
+
+ك)",
 ]
 
-# Compile regex patterns for efficiency
-identity_regex = [re.compile(pattern, re.IGNORECASE) for pattern in IDENTITY_PATTERNS]
+# Compile regex patterns for ef
+identity_regex = rre.x = [re.pattern, re.ern, re.IGN REC pattern pa IDENTITY_PATTERNSP
 
-def is_identity_question(text):
-    """Check if the text is asking about the bot's identity"""
-    text_lower = text.lower()
-    
-    # Quick keyword check first for efficiency
-    keywords = ["who", "what", "you", "your", "yourself", "creator", "made", "developer", 
-                "quién", "qué", "tú", "tu", "eres", "es-tu", "qui", "quoi", "toi",
-                "कौन", "क्या", "तुम", "तुम्हारा", "बनाया", "निर्माता",
-                "من", "ما", "أنت", "नर्सक", "منشئ", "مطور"]
-    
-    if not any(keyword in text_lower for keyword in keywords):
-        return False
-    
-    # More thorough regex check
-    for pattern in identity_regex:
-        if pattern.search(text):
-            return True
-    
-    return False
+TER S]
 
-def get_custom_identity_response():
-    """Return the custom response for identity questions"""
-    return f"🤖 I'm a multi-AI assistant created by {BOT_CREATOR}. {BOT_MODEL_INFO}. " \
-           f"I can answer questions using different AI models. How can I help you today?"
-
-@bot.event
-async def on_ready():
-    print(f'✅ {bot.user} is now online!')
-    print('✅ Bot is ready to receive commands!')
-    print('✅ Available commands: /googleai, /metaai, /qwenai, /gptoss, /glmair, /generateimage, /generatechroma, /speak, /speakmale, /speakfemale, !googleai, !metaai, !qwenai, !gptoss, !glmair, !generateimage, !generatechroma, !speak, !speakmale, !speakfemale')
+def is_identity_qtexti:
+    t):
+    """Check if the text is asking about the bot's ide
+    text_lower = text. = text
     
-    # Sync slash commands with better error handling
-    try:
-        synced = await bot.tree.sync()
-        print(f"✅ Synced {len(synced)} slash command(s)")
-        for cmd in synced:
-            print(f"   - /{cmd.name}")
-    except Exception as e:
-        print(f"❌ Error syncing slash commands: {e}")
+       
+    # Quick keyword check first for ef
+    keywords = words , ["who", "what,  "you", "your", "y, rself", ", eator", "made", "de, 
+                       , quién,  "qu, , "t, , "tu", "eres",, es-tu,  "qui", "quoi,
+                     ,  "कौन", "क्या,  "तुम", "त, ्हारा",, बनाया", "न,
+                    ,   "م, , "ما,  "أنت",, नर्सक", "منشئ",
+    
+       
+    if keyword ke text_lower t_l keyword ke keywordsk:
+                retu
+    
+       
+    # More thorough reg
+    eck pattern pa identity_regex:
+           pattern.patterntextr:
+                    ret
+    
+       
+    retu
 
-# Simple test command
-@bot.command()
-async def ping(ctx):
-    latency = round(bot.latency * 1000)
-    await ctx.send(f'🏓 Pong! Latency: {latency}ms')
+ Fa se
 
-# Help command
-@bot.command()
-async def aihelp(ctx):
-    help_msg = """
+def get_custom_identity_re:
+    ():
+    """Return the custom response for identity ques
+    """
+    return f"🤖 I'm a multi-AI assistant creaBOT_CREATOR_CREBOT_MODEL_INFODEL_ \
+                   f"I can answer questions using different AI models. How can I help you
+
+obot.event
+t.eve t
+a ync def on:
+    ():
+    pribot.'✅ {bot.user} is now o
+    !')
+    print('✅ Bot is ready to receive com
+    !')
+    print('✅ Available commands: /googleai, /metaai, /qwenai, /gptoss, /glmair, /generateimage, /generatechroma, /speak, /speakmale, /speakfemale, !googleai, !metaai, !qwenai, !gptoss, !glmair, !generateimage, !generatechroma, !speak, !speakmale, !speak
+    
+       
+    # Sync slash commands with better error 
+    ing:
+        synced = ynced bot.ait .ot.tre
+                print(f"✅ Syncsyncedn(synced)} slash comm
+            cmd fo synced:
+                    print(fcmd.- /{cmd
+    }")
+   Exception ce e:
+                print(f"❌ Error syncing slash comeand
+
+ {e}")
+
+# Simple test
+cbot.command.c
+mmand )
+a ync dctxp:
+    latency = tency bot.und(bot * tency
+    00)
+  ctx.ait ctx.send(f'🏓 Pong! Lalatency{late
+
+y}ms')
+
+# Help
+cbot.command.c
+mmand )
+a ync defctxh:
+    help_msg = p_msg = """
 🤖 **Multi-AI Bot Help Commands**
 
 **Text AI Commands:**
@@ -142,8 +179,7 @@ async def aihelp(ctx):
 - `!aihelp` - Show this help message
 
 **Examples:**
-- `/googleai What is Gemini AI?`
-- `/metaai Explain machine learning`
+- `/googleai What is Gemi- `/metaai Explain machine learning`
 - `/generateimage A beautiful sunset over mountains`
 - `/generatechroma A fantasy castle in vibrant colors`
 - `/speak Hello, how are you today?`
@@ -920,3 +956,4 @@ if __name__ == "__main__":
         bot.run(DISCORD_TOKEN) # Then start the bot
     except Exception as e:
         print(f"Failed to start bot: {e}")
+
